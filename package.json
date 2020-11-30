@@ -73,6 +73,7 @@
     "@babel/plugin-proposal-decorators": "^7.12.1",
     "babel-eslint": "^10.1.0",
     "eslint-config-airbnb": "^18.2.1",
+    "node-sass": "^5.0.0",
     "stylelint": "^13.8.0",
     "stylelint-config-airbnb": "0.0.0",
     "stylelint-order": "^4.1.0",
@@ -82,7 +83,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "lint": "stylelint --fix 'src/components/**/*.s(a|c)ss'"
+    "lint": "stylelint 'src/**/*.(sass|scss|css)'"
   },
   "stylelint": {
     "extends": "stylelint-config-airbnb"
