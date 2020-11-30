@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true
+  },
+  "include": ["."]
+}
