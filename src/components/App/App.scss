@@ -1,0 +1,9 @@
+@import "assets/sass/utils/functions";
+
+.App {
+
+  &-wrapper {
+    min-height: 100vh;
+    padding: rem(45) rem(25) 0;
+  }
+}

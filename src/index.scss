@@ -1,0 +1,38 @@
+@import 'assets/sass/utils/colors';
+@import 'assets/sass/utils/typography';
+@import 'assets/sass/vendors/include-media';
+
+* {
+  box-sizing: border-box;
+  font-family: 'Gilroy', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &::after, &::before {
+    box-sizing: border-box;
+  }
+}
+
+html {
+  font-size: 100%;
+
+  @include media('<=375px') {
+    font-size: 4.26vw;
+  }
+}
+
+body {
+  color: #2A323A;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  line-height: 1;
+}
