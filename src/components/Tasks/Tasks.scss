@@ -20,6 +20,7 @@
   }
 
   &-task {
+    align-items: center;
     border-radius: rem(20);
     box-shadow: 0 rem(5) rem(20) 0 rgba(0, 0, 0, 0.05);
     display: flex;
@@ -46,6 +47,7 @@
     border-radius: 50%;
     display: block;
     margin: {
+      bottom: auto;
       left: rem(3);
       right: rem(10);
       top: rem(3);
