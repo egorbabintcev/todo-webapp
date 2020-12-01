@@ -1,0 +1,92 @@
+@import 'assets/sass/utils/functions';
+
+.Tasks {
+  &-list {
+    list-style: none;
+    margin: rem(20) 0 rem(30);
+    padding: 0;
+
+    li:not(:last-child) {
+      margin-bottom: rem(15);
+    }
+  }
+
+  &-task {
+    border-radius: rem(20);
+    box-shadow: 0 rem(5) rem(20) 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    padding: rem(15);
+
+    input[type="checkbox"] {
+      display: none;
+
+      &:checked + .Tasks-checkbox {
+        background-color: #7C4FFF;
+        border-color: #7C4FFF;
+
+        &::before {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+
+  &-checkbox {
+    border: rem(2) solid #DADADA;
+    border-radius: 50%;
+    display: block;
+    margin: {
+      left: rem(3);
+      right: rem(10);
+      top: rem(3);
+    }
+    max-height: rem(20);
+    max-width: rem(20);
+    min-height: rem(20);
+    min-width: rem(20);
+    position: relative;
+
+    &::before {
+      content: url("./check.svg");
+      left: 50%;
+      min-height: rem(9);
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      transform: translate(calc(-50% - #{rem(5)}), calc(-50% - #{rem(5)}));
+      transition: 0.2s;
+      width: rem(10);
+    }
+  }
+
+  &-text {
+    flex-grow: 1;
+    line-height: 1.22;
+  }
+
+  &-completed {
+    padding-bottom: rem(5);
+    position: relative;
+
+    &::before {
+      background-color: #D1D1D1;
+      bottom: 0;
+      content: '';
+      height: rem(1);
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+
+    p {
+      color: #A1A1A1;
+      text-transform: uppercase;
+      font: {
+        size: rem(14);
+        weight: 300;
+      }
+    }
+  }
+}
