@@ -1,0 +1,34 @@
+@import 'assets/sass/utils/functions';
+
+.Form {
+  align-items: flex-start;
+  background-color: #FFFFFF;
+  bottom: 0;
+  box-shadow: 0 rem(-1) rem(10) 0 rgba(0, 0, 0, 0.15);
+  display: flex;
+  left: 0;
+  padding: rem(2);
+  position: fixed;
+  width: 100%;
+
+  textarea {
+    border: 0;
+    flex-grow: 1;
+    font: {
+      size: rem(18);
+      weight: 400;
+    }
+    overflow: hidden;
+    padding: rem(15) rem(20);
+    resize: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    height: rem(40);
+    width: rem(40);
+  }
+}

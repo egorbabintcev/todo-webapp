@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import Profile from 'src/components/Profile';
 import Tasks from 'src/components/Tasks';
+import CreateForm from 'src/components/CreateForm';
 import './App.scss';
 
 const App = () => {
-  const [tasks, setTasks] = useState([
-    {
+  const wrapperRef = useRef(null);
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = (title) => {
+    setTasks([...tasks, {
       id: v4(),
-      title: 'Nulla sapien augue sed neque, proin dignissim amet eu diam. 2',
+      title,
       isCompleted: false,
-    },
-    {
-      id: v4(),
-      title: 'Nulla sapien augue sed neque, proin dignissim amet eu diam. 1',
-      isCompleted: false,
-    },
-    {
-      id: v4(),
-      title: 'Nulla sapien augue sed neque, proin dignissim amet eu diam. 3',
-      isCompleted: false,
-    },
-  ]);
+    }]);
+  };
 
   const completeTask = (id) => {
     setTasks(tasks.map((t) => {
@@ -36,11 +30,15 @@ const App = () => {
   };
 
   return (
-    <div className="App-wrapper">
+    <div className="App-wrapper" ref={wrapperRef}>
       <Profile />
       <Tasks
         tasks={tasks}
         completeTask={completeTask}
+      />
+      <CreateForm
+        ref={wrapperRef}
+        addTask={addTask}
       />
     </div>
   );
