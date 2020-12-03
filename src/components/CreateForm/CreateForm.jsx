@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './CreateForm.scss';
+import icon from './paper-plane.svg';
 
 const CreateForm = React.forwardRef(({ addTask }, ref) => {
   const [areaVal, setAreaVal] = useState('');
@@ -45,7 +46,9 @@ const CreateForm = React.forwardRef(({ addTask }, ref) => {
         onClick={handleClick}
         type="button"
       >
-        +
+        <svg>
+          <use xlinkHref={`${icon}#paper-plane`} />
+        </svg>
       </button>
     </div>
   );

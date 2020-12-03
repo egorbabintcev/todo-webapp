@@ -28,7 +28,28 @@
   }
 
   button {
-    height: rem(40);
-    width: rem(40);
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    height: rem(45);
+    outline: none;
+    position: relative;
+    transition: background-color 0.2s;
+    width: rem(45);
+
+    &:focus {
+      background-color: #f7f7f7;
+    }
+
+    svg {
+      fill:#7C4FFF;
+      height: rem(25);
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: rem(25);
+    }
   }
 }
