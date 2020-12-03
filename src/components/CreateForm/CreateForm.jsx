@@ -17,12 +17,15 @@ const CreateForm = React.forwardRef(({ addTask }, ref) => {
   }, [areaVal]);
 
   const handleClick = () => {
-    addTask(areaVal);
+    const submitVal = areaVal.trim();
+    if (submitVal.length > 0) {
+      addTask(submitVal);
+    }
     setAreaVal('');
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleClick();
     }
@@ -55,5 +58,7 @@ CreateForm.propTypes = {
 CreateForm.defaultProps = {
   addTask: () => {},
 };
+
+CreateForm.displayName = 'CreateForm';
 
 export default CreateForm;
