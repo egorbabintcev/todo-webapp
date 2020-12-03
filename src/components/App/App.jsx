@@ -7,7 +7,11 @@ import './App.scss';
 
 const App = () => {
   const wrapperRef = useRef(null);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([{
+    id: v4(),
+    title: 'Приготовить манник для субботних посиделок',
+    isCompleted: false,
+  }]);
 
   const addTask = (title) => {
     setTasks([...tasks, {
@@ -29,12 +33,17 @@ const App = () => {
     }));
   };
 
+  const removeTask = (id) => {
+    setTasks(tasks.filter((t) => t.id !== id));
+  };
+
   return (
     <div className="App-wrapper" ref={wrapperRef}>
       <Profile />
       <Tasks
         tasks={tasks}
         completeTask={completeTask}
+        removeTask={removeTask}
       />
       <CreateForm
         ref={wrapperRef}
