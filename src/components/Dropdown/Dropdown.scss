@@ -1,0 +1,75 @@
+@import 'assets/sass/utils/functions';
+
+.dropdown {
+  position: relative;
+
+  &__toggle {
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    max-height: rem(40);
+    max-width: rem(40);
+    min-height: rem(40);
+    min-width: rem(40);
+    outline: none;
+    padding: 0;
+
+    &:active {
+      background-color: #f7f7f7;
+    }
+
+    svg {
+      fill: #C4C4C4;
+      max-height: rem(40);
+      max-width: rem(20);
+      min-height: rem(40);
+      min-width: rem(20);
+    }
+  }
+
+  &__content {
+    background-color: #FFFFFF;
+    border: rem(1) solid #ccc;
+    border-radius: rem(8);
+    max-width: rem(120);
+    min-width: rem(120);
+    padding: rem(10);
+    position: absolute;
+    right: 0;
+    top: 100%;
+    transition: opacity 0.4s;
+    z-index: 2;
+
+    &:not(.is-open) {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    &.is-open {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &__item {
+    background-color: #fff;
+    border: 0;
+    cursor: pointer;
+    font: {
+      size: rem(18)
+    }
+    padding: rem(10) rem(5);
+    text-align: left;
+    transition: background-color 0.2s;
+    width: 100%;
+
+    &:not(:last-child) {
+      border-bottom: rem(1) solid #f7f7f7;
+    }
+
+    &:active {
+      background: radial-gradient(50% 50% at 50% 50%, #F7F7F7 0%, #F7F7F7 49.48%, #FFFFFF 100%);;
+    }
+  }
+}

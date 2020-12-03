@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Dropdown, DropdownItem } from 'src/components/Dropdown';
 import './Tasks.scss';
 import check from './check.svg';
 
@@ -7,6 +8,7 @@ const Tasks = (props) => {
   const {
     tasks,
     completeTask,
+    removeTask,
   } = props;
   const uncompleted = [];
   const completed = [];
@@ -27,6 +29,12 @@ const Tasks = (props) => {
             </svg>
           </span>
           <p className="Tasks-text">{t.title}</p>
+          <Dropdown>
+            {/* eslint-disable */}
+            <DropdownItem onClick={removeTask.bind(this, t.id)}>
+              Delete
+            </DropdownItem>
+          </Dropdown>
         </label>
       </li>
     );
@@ -61,11 +69,13 @@ Tasks.propTypes = {
     isCompleted: PropTypes.bool,
   })),
   completeTask: PropTypes.func,
+  removeTask: PropTypes.func,
 };
 
 Tasks.defaultProps = {
   tasks: [],
   completeTask: () => {},
+  removeTask: () => {},
 };
 
 export default Tasks;
