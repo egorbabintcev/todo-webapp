@@ -7,11 +7,7 @@ import './App.scss';
 
 const App = () => {
   const wrapperRef = useRef(null);
-  const [tasks, setTasks] = useState([{
-    id: v4(),
-    title: 'Приготовить манник для субботних посиделок',
-    isCompleted: false,
-  }]);
+  const [tasks, setTasks] = useState([]);
 
   const addTask = (title) => {
     setTasks([...tasks, {
