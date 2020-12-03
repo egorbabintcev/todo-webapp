@@ -1,52 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Tasks.scss';
+import check from './check.svg';
 
 const Tasks = (props) => {
   const {
     tasks,
     completeTask,
   } = props;
-  const uncompleted = tasks.filter((t) => !t.isCompleted);
-  const completed = tasks.filter((t) => t.isCompleted);
+  const uncompleted = [];
+  const completed = [];
+
+  tasks.forEach((t) => {
+    const tItem = (
+      <li key={t.id}>
+        <label className="Tasks-task" htmlFor={t.id}>
+          <input
+            id={t.id}
+            type="checkbox"
+            checked={t.isCompleted}
+            onChange={completeTask.bind(null, t.id)}
+          />
+          <span className="Tasks-checkbox">
+            <svg>
+              <use xlinkHref={`${check}#check`} />
+            </svg>
+          </span>
+          <p className="Tasks-text">{t.title}</p>
+        </label>
+      </li>
+    );
+
+    if (t.isCompleted) {
+      completed.push(tItem);
+    } else {
+      uncompleted.push(tItem);
+    }
+  });
 
   return (
     <div className="Tasks">
       <h3>Tasks</h3>
-      <ul className="Tasks-list">
-        {uncompleted.map((t) => (
-          <li key={t.id}>
-            <label className="Tasks-task" htmlFor={t.id}>
-              <input
-                id={t.id}
-                type="checkbox"
-                checked={t.isCompleted}
-                onChange={completeTask.bind(this, t.id)}
-              />
-              <span className="Tasks-checkbox" />
-              <p className="Tasks-text">{t.title}</p>
-            </label>
-          </li>
-        ))}
+      <ul data-testid="uncompleted" className="Tasks-list">
+        {uncompleted}
       </ul>
       <div className="Tasks-completed">
         <p>Completed</p>
       </div>
-      <ul className="Tasks-list">
-        {completed.map((t) => (
-          <li key={t.id}>
-            <label className="Tasks-task" htmlFor={t.id}>
-              <input
-                id={t.id}
-                type="checkbox"
-                checked={t.isCompleted}
-                onChange={completeTask.bind(null, t.id)}
-              />
-              <span className="Tasks-checkbox" />
-              <p className="Tasks-text">{t.title}</p>
-            </label>
-          </li>
-        ))}
+      <ul data-testid="completed" className="Tasks-list">
+        {completed}
       </ul>
     </div>
   );
