@@ -6,7 +6,7 @@ describe('Profile component', () => {
   it('Should render greeting', () => {
     const { getByText } = render(<Profile />);
     expect(getByText(/Hey, User/i)).toBeInTheDocument();
-  })
+  });
 
   it('Should render current date string in "Month Day, Year" format', () => {
     const { getByText } = render(<Profile />);
@@ -17,4 +17,4 @@ describe('Profile component', () => {
     });
     expect(getByText(compareStr)).toBeInTheDocument();
   });
-})
+});
