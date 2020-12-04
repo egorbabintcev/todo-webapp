@@ -19,7 +19,7 @@ DropdownItem.propTypes = {
 };
 
 DropdownItem.defaultProps = {
-  onClick: () => { console.log(123); },
+  onClick: () => {},
 };
 
 export const Dropdown = ({ children }) => {
@@ -52,7 +52,7 @@ export const Dropdown = ({ children }) => {
           <use xlinkHref={`${icons}#ellipsis-v`} />
         </svg>
       </button>
-      <div className={cx('dropdown__content', { 'is-open': isOpen })}>
+      <div data-testid="dropdown-list" className={cx('dropdown__content', { 'is-open': isOpen })}>
         {children}
       </div>
     </div>
