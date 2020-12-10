@@ -1,0 +1,9 @@
+@import "assets/sass/utils/functions";
+
+.App {
+  &-wrapper {
+    height: 100vh;
+    overflow-y: scroll;
+    padding: rem(45) rem(25) 0;
+  }
+}
