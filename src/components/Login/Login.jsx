@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'src/utils/Auth';
+import './Login.scss';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -10,12 +11,11 @@ const Login = () => {
   const history = useHistory();
 
   const handleSubmit = async (e) => {
-    setAppErr(undefined);
     e.preventDefault();
 
     try {
-      auth.signin(username, password)
-        .then(() => { history.push('/dashboard'); });
+      await auth.signin(username, password);
+      history.push('/dashboard');
     } catch (err) {
       if (err.response && err.response.status === 401) {
         setAppErr({ message: 'Invalid username or password!' });
@@ -28,31 +28,30 @@ const Login = () => {
     }
   };
 
+  useEffect(() => () => {});
+
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <p>
-          <input
-            type="text"
-            placeholder="Your login here"
-            value={username}
-            onChange={({ target }) => { setUsername(target.value); }}
-          />
-        </p>
-        <p>
-          <input
-            type="password"
-            placeholder="Your password here"
-            value={password}
-            onChange={({ target }) => { setPassword(target.value); }}
-          />
-        </p>
-        <p>
-          <button type="submit">Login</button>
-        </p>
+    <div className="Login-wrapper">
+      { appErr && <p className="Login-error">{appErr.message}</p> }
+      <form className="Login-form" onSubmit={handleSubmit}>
+        <h3 className="Login-form__title">Login to your account</h3>
+        <input
+          type="text"
+          placeholder="Your login here"
+          value={username}
+          onChange={({ target }) => { setUsername(target.value); }}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Your password here"
+          value={password}
+          onChange={({ target }) => { setPassword(target.value); }}
+          required
+        />
+        <button type="submit">Login</button>
       </form>
-      { appErr && <span>{appErr.message}</span> }
-    </>
+    </div>
 
   );
 };

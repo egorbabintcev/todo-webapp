@@ -1,0 +1,105 @@
+@import 'assets/sass/utils/functions';
+
+.Login {
+  &-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: rem(20);
+    max-width: 80%;
+    min-width: 80%;
+
+    &__title {
+      font: {
+        size: rem(22);
+        weight: 600;
+      }
+      margin-bottom: rem(40);
+      position: relative;
+
+      &::before {
+        background-color: #CFCFCF;
+        content: '';
+        display: block;
+        height: rem(1);
+        left: 0;
+        position: absolute;
+        top: 100%;
+        transform: translateY(rem(7));
+        width: 100%;
+      }
+    }
+
+    input {
+      border: rem(1) solid #CFCFCF;
+      border-radius: rem(4);
+      font: {
+        size: rem(17);
+        weight: 500;
+      }
+      margin-bottom: rem(15);
+      min-width: 60vw;
+      padding: rem(15) rem(20);
+
+      &:placeholder-shown {
+        text-transform: capitalize;
+      }
+
+      &:focus {
+        outline: rgba(#7C4FFF, 0.5) rem(1) auto;
+      }
+    }
+
+    button {
+      background-color: #7C4FFF;
+      border: 0;
+      border-radius: rem(4);
+      color: #ffffff;
+      font: {
+        size: rem(16);
+        weight: 700;
+      }
+      letter-spacing: 0.06em;
+      padding: rem(15) rem(30);
+      text-transform: uppercase;
+    }
+  }
+
+  &-error {
+    border: rem(1) solid #E35E54;
+    border-radius: 0 0 rem(4) rem(4);
+    font: {
+      size: rem(16);
+      weight: 500;
+    }
+    margin-bottom: rem(50);
+    max-width: 80%;
+    min-width: 80%;
+    padding: rem(15) rem(20);
+    position: relative;
+
+    &::before {
+      background-color: #E35E54;
+      border-radius: rem(2) rem(2) 0 0;
+      bottom: 100%;
+      color: #FFF;
+      content: 'Alert';
+      display: block;
+      font-size: rem(16);
+      // height: rem(15);
+      left: rem(-1);
+      letter-spacing: 0.015em;
+      padding: rem(5) rem(7);
+      position: absolute;
+      width: calc(100% + #{rem(2)});
+    }
+  }
+}
