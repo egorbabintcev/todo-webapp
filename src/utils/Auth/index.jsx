@@ -7,11 +7,11 @@ export const useAuth = () => useContext(AuthContext);
 
 const useProvideAuth = () => {
   const [user, setUser] = useState(undefined);
+  const apiUri = process.env.REACT_APP_API_URI;
 
   const signin = async (username, password) => {
     setUser(undefined);
-    /* eslint-disable */
-    const response = await axios.post('http://website.local/api/auth/login', {
+    const response = await axios.post(`${apiUri}/api/auth/login`, {
       username,
       password,
     });
@@ -19,12 +19,24 @@ const useProvideAuth = () => {
     return response.data;
   };
 
+  const signup = async (username, password) => {
+    await axios.post(`${apiUri}/api/auth/signup`, {
+      username,
+      password,
+    });
+  };
+
   const signout = async () => {
     setUser(undefined);
     return null;
   };
 
-  return { user, signin, signout };
+  return {
+    user,
+    signin,
+    signout,
+    signup,
+  };
 };
 
 export const ProvideAuth = ({ children }) => {
