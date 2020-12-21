@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import * as cookies from 'js-cookie';
 
 const AuthContext = React.createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(cookies.getJSON('user'));
   const apiUri = process.env.REACT_APP_API_URI;
 
   const signin = async (username, password) => {
@@ -15,6 +16,8 @@ const useProvideAuth = () => {
       username,
       password,
     });
+    cookies.set('user', response.data);
+    cookies.set('access_token', response.data.access_token);
     setUser(response.data);
     return response.data;
   };
@@ -28,6 +31,8 @@ const useProvideAuth = () => {
 
   const signout = async () => {
     setUser(undefined);
+    cookies.remove('access_token');
+    cookies.remove('user');
     return null;
   };
 
