@@ -1,36 +1,45 @@
-import React, { useState, useRef } from 'react';
-import { v4 } from 'uuid';
+import React, { useState, useRef, useEffect } from 'react';
 import Profile from 'src/components/Profile';
 import Tasks from 'src/components/Tasks';
 import CreateForm from 'src/components/CreateForm';
+import { useTodoAPI } from 'src/api/TodoAPI';
 import './Dashboard.scss';
 
 const Dashboard = () => {
   const wrapperRef = useRef(null);
   const [tasks, setTasks] = useState([]);
+  const todoAPI = useTodoAPI();
 
-  const addTask = (title) => {
-    setTasks([...tasks, {
-      id: v4(),
-      title,
-      isCompleted: false,
-    }]);
-  };
+  useEffect(async () => {
+    const { data } = await todoAPI.getAll();
+    setTasks(data);
+  }, []);
 
-  const completeTask = (id) => {
-    setTasks(tasks.map((t) => {
-      if (t.id === id) {
-        return {
-          ...t,
-          isCompleted: !t.isCompleted,
-        };
+  const addTask = async (title) => {
+    try {
+      const { status, data } = await todoAPI.create(title);
+      if (status === 201) {
+        setTasks([...tasks, data]);
       }
-      return t;
-    }));
+    } catch (err) {
+      throw new Error(err);
+    }
   };
 
-  const removeTask = (id) => {
-    setTasks(tasks.filter((t) => t.id !== id));
+  const completeTask = async (id) => {
+    /* eslint-disable no-underscore-dangle */
+    const { isCompleted } = tasks.find((t) => t._id === id);
+    const { status } = await todoAPI.update(id, { isCompleted: !isCompleted });
+    if (status === 200) {
+      setTasks(tasks.map((t) => (t._id === id ? { ...t, isCompleted: !t.isCompleted } : t)));
+    }
+  };
+
+  const removeTask = async (id) => {
+    const { status } = await todoAPI.remove(id);
+    if (status === 200) {
+      setTasks(tasks.filter((t) => t._id !== id));
+    }
   };
 
   return (

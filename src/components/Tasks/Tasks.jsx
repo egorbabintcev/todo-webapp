@@ -13,15 +13,16 @@ const Tasks = (props) => {
   const uncompleted = [];
   const completed = [];
 
+  /* eslint-disable no-underscore-dangle */
   tasks.forEach((t) => {
     const tItem = (
-      <li key={t.id}>
-        <label className="Tasks-task" htmlFor={t.id}>
+      <li key={t._id}>
+        <label className="Tasks-task" htmlFor={t._id}>
           <input
-            id={t.id}
+            id={t._id}
             type="checkbox"
             checked={t.isCompleted}
-            onChange={completeTask.bind(null, t.id)}
+            onChange={completeTask.bind(null, t._id)}
           />
           <span className="Tasks-checkbox">
             <svg>
@@ -31,7 +32,7 @@ const Tasks = (props) => {
           <p className="Tasks-text">{t.title}</p>
           <Dropdown>
             {/* eslint-disable */}
-            <DropdownItem onClick={removeTask.bind(this, t.id)}>
+            <DropdownItem onClick={removeTask.bind(this, t._id)}>
               Delete
             </DropdownItem>
           </Dropdown>
