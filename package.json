@@ -88,7 +88,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "lint": "stylelint 'src/**/*.(sass|scss|css)'"
+    "lint": "stylelint 'src/**/*.(sass|scss|css)'",
+    "new:component": "hygen new component"
   },
   "stylelint": {
     "extends": "stylelint-config-airbnb"
@@ -207,5 +208,8 @@
         }
       ]
     ]
+  },
+  "devDependencies": {
+    "hygen": "^6.0.4"
   }
 }
