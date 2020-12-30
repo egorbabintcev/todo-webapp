@@ -4,12 +4,12 @@
   align-items: flex-start;
   display: flex;
   justify-content: space-between;
-  margin-bottom: rem(30);
+  margin-bottom: rem(50);
 
   &-nickname {
     line-height: 1.25;
     font: {
-      size: rem(32);
+      size: rem(28);
       weight: 700;
     }
   }
@@ -18,7 +18,7 @@
     color: #A1A1A1;
     line-height: 1.25;
     font: {
-      size: rem(20);
+      size: rem(18);
       weight: 400;
     }
   }

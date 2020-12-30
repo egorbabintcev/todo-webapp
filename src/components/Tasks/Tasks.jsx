@@ -49,7 +49,7 @@ const Tasks = (props) => {
 
   return (
     <div className="Tasks">
-      <h3>Tasks</h3>
+      <h3>Today</h3>
       <ul data-testid="uncompleted" className="Tasks-list">
         {uncompleted}
       </ul>

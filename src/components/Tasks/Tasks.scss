@@ -1,15 +1,15 @@
 @import 'assets/sass/utils/functions';
 
 .Tasks {
+  h3 {
+    font-size: rem(30);
+  }
+
   &-list {
     list-style: none;
     margin: rem(20) 0 rem(30);
     padding: 0;
     z-index: 2;
-
-    &:not(:empty) {
-      padding: rem(15) 0;
-    }
 
     &:last-of-type {
       margin-bottom: 0;
