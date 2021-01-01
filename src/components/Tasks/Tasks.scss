@@ -101,3 +101,25 @@
     }
   }
 }
+
+$transition-duration: 400ms;
+
+.task-transition {
+  &-enter {
+    opacity: 0;
+
+    &-active {
+      transition: opacity $transition-duration, transform $transition-duration;
+      opacity: 1;
+    }
+  }
+
+  &-exit {
+    opacity: 1;
+
+    &-active {
+      transition: opacity $transition-duration, transform $transition-duration;
+      opacity: 0;
+    }
+  }
+}

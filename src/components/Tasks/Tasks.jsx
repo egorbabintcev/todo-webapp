@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Dropdown, DropdownItem } from 'src/components/Dropdown';
 import './Tasks.scss';
 import check from './check.svg';
@@ -16,28 +17,34 @@ const Tasks = (props) => {
   /* eslint-disable no-underscore-dangle */
   tasks.forEach((t) => {
     const tItem = (
-      <li key={t._id}>
-        <label className="Tasks-task" htmlFor={t._id}>
-          <input
-            id={t._id}
-            type="checkbox"
-            checked={t.isCompleted}
-            onChange={completeTask.bind(null, t._id)}
-          />
-          <span className="Tasks-checkbox">
-            <svg>
-              <use xlinkHref={`${check}#check`} />
-            </svg>
-          </span>
-          <p className="Tasks-text">{t.title}</p>
-          <Dropdown>
-            {/* eslint-disable */}
-            <DropdownItem onClick={removeTask.bind(this, t._id)}>
-              Delete
-            </DropdownItem>
-          </Dropdown>
-        </label>
-      </li>
+      <CSSTransition
+        classNames="task-transition"
+        timeout={400}
+        key={t._id}
+      >
+        <li>
+          <label className="Tasks-task" htmlFor={t._id}>
+            <input
+              id={t._id}
+              type="checkbox"
+              checked={t.isCompleted}
+              onChange={completeTask.bind(null, t._id)}
+            />
+            <span className="Tasks-checkbox">
+              <svg>
+                <use xlinkHref={`${check}#check`} />
+              </svg>
+            </span>
+            <p className="Tasks-text">{t.title}</p>
+            <Dropdown>
+              {/* eslint-disable */}
+              <DropdownItem onClick={removeTask.bind(this, t._id)}>
+                Delete
+              </DropdownItem>
+            </Dropdown>
+          </label>
+        </li>
+      </CSSTransition>
     );
 
     if (t.isCompleted) {
@@ -50,14 +57,18 @@ const Tasks = (props) => {
   return (
     <div className="Tasks">
       <h3>Today</h3>
-      <ul data-testid="uncompleted" className="Tasks-list">
-        {uncompleted}
+      <ul className="Tasks-list">
+        <TransitionGroup component={null}>
+          {uncompleted}
+        </TransitionGroup>
       </ul>
       <div className="Tasks-completed">
         <p>Completed</p>
       </div>
-      <ul data-testid="completed" className="Tasks-list">
-        {completed}
+      <ul className="Tasks-list">
+        <TransitionGroup component={null}>
+          {completed}
+        </TransitionGroup>
       </ul>
     </div>
   );
