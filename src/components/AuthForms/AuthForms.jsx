@@ -78,10 +78,13 @@ export const Login = () => {
 };
 
 export const Signup = () => {
+  // input values
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  // password visibility
   const [pwdVisibility, setPwdVisibility] = useState(false);
+  const [confirmPwdVisibility, setConfirmPwdVisibility] = useState(false);
   const [appErr, setAppErr] = useState(undefined);
   const auth = useAuth();
   const history = useHistory();
@@ -104,26 +107,6 @@ export const Signup = () => {
       setUsername('');
       setPassword('');
       setConfirmPassword('');
-    }
-  };
-
-  const handlePasswordChange = ({ target }) => {
-    setPassword(target.value);
-
-    if (target.value === confirmPassword) {
-      setAppErr(undefined);
-    } else {
-      setAppErr({ message: 'Passwords aren\'t equal!' });
-    }
-  };
-
-  const handleConfirmPasswordChange = ({ target }) => {
-    setConfirmPassword(target.value);
-
-    if (target.value === password) {
-      setAppErr(undefined);
-    } else {
-      setAppErr({ message: 'Passwords aren\'t equal!' });
     }
   };
 
@@ -150,7 +133,7 @@ export const Signup = () => {
             name="password"
             placeholder="Your password here"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={({ target }) => setPassword(target.value)}
             required
           />
           <button
@@ -165,13 +148,22 @@ export const Signup = () => {
         </label>
         <label htmlFor="passwordConfirm" className="Login-form__label">
           <input
-            type={pwdVisibility ? 'text' : 'password'}
+            type={confirmPwdVisibility ? 'text' : 'password'}
             name="passwordConfirm"
             placeholder="Confirm Your password here"
             value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
+            onChange={({ target }) => setConfirmPassword(target.value)}
             required
           />
+          <button
+            type="button"
+            className={confirmPwdVisibility ? 'is-active' : ''}
+            onClick={() => setConfirmPwdVisibility(!confirmPwdVisibility)}
+          >
+            <svg>
+              <use xlinkHref={`${icons}#${confirmPwdVisibility ? 'eye-slashed' : 'eye'}`} />
+            </svg>
+          </button>
         </label>
         <button type="submit" className="Login-form__submit">Create account</button>
       </form>
