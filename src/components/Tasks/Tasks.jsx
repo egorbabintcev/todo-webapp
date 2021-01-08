@@ -19,7 +19,7 @@ const Tasks = (props) => {
     const tItem = (
       <CSSTransition
         classNames="task-transition"
-        timeout={400}
+        timeout={350}
         key={t._id}
       >
         <li>
@@ -30,11 +30,13 @@ const Tasks = (props) => {
               checked={t.isCompleted}
               onChange={completeTask.bind(null, t._id)}
             />
-            <span className="Tasks-checkbox">
-              <svg>
-                <use xlinkHref={`${check}#check`} />
-              </svg>
-            </span>
+            <div className="Task-checkbox__wrapper">
+              <span className="Tasks-checkbox">
+                <svg>
+                  <use xlinkHref={`${check}#check`} />
+                </svg>
+              </span>
+            </div>
             <p className="Tasks-text">{t.title}</p>
             <Dropdown>
               {/* eslint-disable */}
@@ -57,7 +59,7 @@ const Tasks = (props) => {
   return (
     <div className="Tasks">
       <h3>Today</h3>
-      <ul className="Tasks-list">
+      <ul className="Tasks-list" data-testid="uncompleted">
         <TransitionGroup component={null}>
           {uncompleted}
         </TransitionGroup>
@@ -65,7 +67,7 @@ const Tasks = (props) => {
       <div className="Tasks-completed">
         <p>Completed</p>
       </div>
-      <ul className="Tasks-list">
+      <ul className="Tasks-list" data-testid="completed">
         <TransitionGroup component={null}>
           {completed}
         </TransitionGroup>

@@ -32,7 +32,7 @@
     input[type="checkbox"] {
       display: none;
 
-      &:checked + .Tasks-checkbox {
+      &:checked + div .Tasks-checkbox {
         background-color: #7C4FFF;
         border-color: #7C4FFF;
 
@@ -66,15 +66,17 @@
       position: absolute;
       top: 50%;
       transform: translate(calc(-50% - #{rem(5)}), calc(-50% - #{rem(5)}));
-      transition: 0.2s;
       width: 65%;
     }
   }
 
   &-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     flex-grow: 1;
     line-height: 1.22;
-    white-space: pre-wrap;
+    overflow: hidden;
   }
 
   &-completed {
@@ -102,23 +104,63 @@
   }
 }
 
-$transition-duration: 400ms;
+$task-transition: 250ms;
+$task-delay: 100ms;
+$checkbox-transition: 200ms;
 
 .task-transition {
   &-enter {
     opacity: 0;
+    transform: translateY(-10%);
 
     &-active {
-      transition: opacity $transition-duration, transform $transition-duration;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity $task-transition, transform $task-transition / 2;
+      transition-delay: $task-delay;
+    }
+
+    &-done {
       opacity: 1;
     }
   }
 
   &-exit {
     opacity: 1;
+    transform: translateY(0);
 
     &-active {
-      transition: opacity $transition-duration, transform $transition-duration;
+      opacity: 0;
+      transform: translateY(10%);
+      transition: opacity $task-transition, transform $task-transition / 2;
+      transition-delay: $task-delay;
+
+      input[type="checkbox"]:not(:checked) + div .Tasks-checkbox {
+        background-color: #7C4FFF;
+        border-color: #7C4FFF;
+        transition: all $checkbox-transition;
+
+        svg {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+          transition: all $checkbox-transition;
+        }
+      }
+
+      input[type="checkbox"]:checked + div .Tasks-checkbox {
+        background-color: transparent;
+        border-color: #DADADA;
+        transition: all $checkbox-transition;
+
+        svg {
+          opacity: 0;
+          transform: translate(calc(-50% - #{rem(5)}), calc(-50% - #{rem(5)}));
+          transition: all $checkbox-transition;
+        }
+      }
+    }
+
+    &-done {
       opacity: 0;
     }
   }
