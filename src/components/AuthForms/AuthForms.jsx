@@ -79,6 +79,7 @@ export const Login = () => {
 
 export const Signup = () => {
   // input values
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -98,8 +99,8 @@ export const Signup = () => {
     }
 
     try {
-      await auth.signup(username, password);
-      history.push('/login');
+      await auth.signup(name, username, password);
+      history.go('/login');
     } catch (err) {
       const [message] = err.response.data.message;
       setAppErr({ message });
@@ -117,6 +118,16 @@ export const Signup = () => {
       { appErr && <p className="Login-error">{appErr.message}</p> }
       <h3 className="Login__title">Create new account</h3>
       <form className="Login-form" onSubmit={handleSubmit}>
+        <label htmlFor="name" className="Login-form__label">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name here"
+            value={name}
+            onChange={({ target }) => { setName(target.value); }}
+            required
+          />
+        </label>
         <label htmlFor="username" className="Login-form__label">
           <input
             type="text"

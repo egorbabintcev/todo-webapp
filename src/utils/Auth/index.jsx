@@ -22,8 +22,9 @@ const useProvideAuth = () => {
     return response.data;
   };
 
-  const signup = async (username, password) => {
+  const signup = async (name, username, password) => {
     await axios.post(`${apiUri}/api/auth/signup`, {
+      name,
       username,
       password,
     });

@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2015",
+    "module": "commonJS",
     "baseUrl": ".",
     "experimentalDecorators": true,
     "useDefineForClassFields": true
   },
-  "include": ["."]
+  "include": ["."],
+  "exclude": ["node_modules"]
 }
