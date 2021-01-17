@@ -1,0 +1,40 @@
+@import 'assets/sass/utils/functions';
+
+.Alert {
+  background-color: lighten(#e35e54, 35%);
+  border: rem(1) solid lighten( #E35E54, 15%);
+  border-radius: rem(4);
+  color: lighten(#2a323a, 15%);
+  padding: rem(7) rem(10);
+
+  $transition-time: 300ms;
+
+  &-enter {
+    opacity: 0;
+    transform: translateY(5%);
+
+    &-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all $transition-time;
+    }
+  }
+
+  &-exit {
+    opacity: 1;
+    transform: translateY(0);
+
+    &-active {
+      opacity: 0;
+      transform: translateY(5%);
+      transition: all $transition-time;
+    }
+  }
+
+  &-wrapper {
+    bottom: 10vh;
+    left: 5vw;
+    position: fixed;
+    width: 90vw;
+  }
+}

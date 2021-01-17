@@ -3,16 +3,26 @@ import Profile from 'src/components/Profile';
 import Tasks from 'src/components/Tasks';
 import CreateForm from 'src/components/CreateForm';
 import { useTodoAPI } from 'src/api/TodoAPI';
+import { useAlert } from 'src/utils/Alert';
 import './Dashboard.scss';
 
 const Dashboard = () => {
   const wrapperRef = useRef(null);
   const [tasks, setTasks] = useState([]);
   const todoAPI = useTodoAPI();
+  const alert = useAlert();
 
   useEffect(async () => {
-    const { data } = await todoAPI.getAll();
-    setTasks(data);
+    try {
+      const { data } = await todoAPI.getAll();
+      setTasks(data);
+    } catch (err) {
+      if (err.message === 'Network Error') {
+        alert.handleAlert('Network error. Please, check your internet connection.');
+      } else {
+        throw new Error(err);
+      }
+    }
   }, []);
 
   const addTask = async (title) => {
@@ -22,23 +32,44 @@ const Dashboard = () => {
         setTasks([...tasks, data]);
       }
     } catch (err) {
-      throw new Error(err);
+      if (err.message === 'Network Error') {
+        alert.handleAlert('Network error. Please, check your internet connection.');
+      } else {
+        throw new Error(err);
+      }
     }
   };
 
   const completeTask = async (id) => {
     /* eslint-disable no-underscore-dangle */
     const { isCompleted } = tasks.find((t) => t._id === id);
-    const { status } = await todoAPI.update(id, { isCompleted: !isCompleted });
-    if (status === 200) {
-      setTasks(tasks.map((t) => (t._id === id ? { ...t, isCompleted: !t.isCompleted } : t)));
+
+    try {
+      const { status } = await todoAPI.update(id, { isCompleted: !isCompleted });
+      if (status === 200) {
+        setTasks(tasks.map((t) => (t._id === id ? { ...t, isCompleted: !t.isCompleted } : t)));
+      }
+    } catch (err) {
+      if (err.message === 'Network Error') {
+        alert.handleAlert('Network error. Please, check your internet connection.');
+      } else {
+        throw new Error(err);
+      }
     }
   };
 
   const removeTask = async (id) => {
-    const { status } = await todoAPI.remove(id);
-    if (status === 200) {
-      setTasks(tasks.filter((t) => t._id !== id));
+    try {
+      const { status } = await todoAPI.remove(id);
+      if (status === 200) {
+        setTasks(tasks.filter((t) => t._id !== id));
+      }
+    } catch (err) {
+      if (err.message === 'Network Error') {
+        alert.handleAlert('Network error. Please, check your internet connection.');
+      } else {
+        throw new Error(err);
+      }
     }
   };
 

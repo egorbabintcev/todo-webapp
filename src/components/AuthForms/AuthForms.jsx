@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'src/utils/Auth';
+import { useAlert } from 'src/utils/Alert';
 import icons from './icons.svg';
 import './AuthForms.scss';
 
@@ -11,16 +12,19 @@ export const Login = () => {
   const [pwdVisibility, setPwdVisibility] = useState(false);
   const auth = useAuth();
   const history = useHistory();
+  const alert = useAlert();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await auth.signin(username, password);
-      history.push('/dashboard');
+      history.go('/dashboard');
     } catch (err) {
       if (err.response && err.response.status === 401) {
         setAppErr({ message: 'Invalid username or password!' });
+      } else if (err.message === 'Network Error') {
+        alert.handleAlert('Network error. Please, check your internet connection.');
       } else {
         throw new Error(err);
       }
