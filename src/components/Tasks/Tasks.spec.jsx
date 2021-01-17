@@ -6,19 +6,20 @@ import Tasks from './Tasks';
 
 describe('Tasks component', () => {
   it('Default props', () => {
-    const mockTasks = [{ id: v4(), title: 'Test', isCompleted: false }];
-    const { getByRole } = render(<Tasks tasks={mockTasks} />);
+    const mockTasks = [{ _id: v4(), title: 'Test', isCompleted: false }];
+    const { getByRole, getByText } = render(<Tasks tasks={mockTasks} />);
     expect(userEvent.click(getByRole('checkbox'))).toBeUndefined();
+    expect(userEvent.click(getByText(/Delete/i))).toBeUndefined();
   });
 
   it('Should render title and completed task separator', () => {
     const { getByText } = render(<Tasks />);
-    expect(getByText(/Tasks/i)).toBeInTheDocument();
+    expect(getByText(/Today/i)).toBeInTheDocument();
     expect(getByText(/Completed/i)).toBeInTheDocument();
   });
 
   it('Should render list item with task text from props specified array', () => {
-    const mockTasks = [{ id: v4(), title: 'Test', isCompleted: false }];
+    const mockTasks = [{ _id: v4(), title: 'Test', isCompleted: false }];
     const { getByRole } = render(<Tasks tasks={mockTasks} />);
     expect(getByRole('listitem')).toHaveTextContent(/Test/i);
   });
@@ -26,12 +27,12 @@ describe('Tasks component', () => {
   it('Should render completed and uncompleted tasks to different lists', () => {
     const mockTasks = [
       {
-        id: v4(),
+        _id: v4(),
         title: 'Test 1',
         isCompleted: false,
       },
       {
-        id: v4(),
+        _id: v4(),
         title: 'Test 2',
         isCompleted: true,
       },
